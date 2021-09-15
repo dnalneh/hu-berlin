@@ -16,29 +16,30 @@
 </head>
 
 <body>
-    <div id="app"       >
+    <div id="app">
         <h1>Todo-Items</h1>
 
-        <button class="m-3 btn btn-primary"    @click="removeAllCompleted()"   >Remove all completed</button>
+        <button class="m-3 btn btn-primary" @click="removeAllCompleted()">Remove all completed</button>
 
         <ul class="list-group">
             <li v-for="(item, index) in items" :key="item.id" class="list-group-item">
 
                 <div class="row">
                     <div class="col-auto">
-                      {{index}}
+                        {{index}}
                     </div>
                     <div class="col" :class="{iscompleted : item.completed}">
-                       {{item.title}}
+                        {{item.title}}
                     </div>
                     <div class="col">
                         <input type="checkbox" :checked="item.completed" /><!-- ist also nur one-way Binding -->
                     </div>
                     <div class="col">
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" v-model="item.completed" class="custom-control-input" :id="'chk'+ item.id">
+                            <input type="checkbox" v-model="item.completed" class="custom-control-input"
+                                :id="'chk'+ item.id">
                             <label class="custom-control-label" :for="'chk'+ item.id"></label>
-                        </div>      
+                        </div>
                     </div>
                     <a href="#" class="col" @click="deleteTodo(item.id)">
                         Delete
@@ -56,19 +57,19 @@
             created: function () {
                 fetch('https://jsonplaceholder.typicode.com/todos')
                     .then(async response => {
-                       this.items = await response.json();
+                        this.items = await response.json();
                     });
             },
             methods: {
-               removeAllCompleted: function () {
-                   this.items = this.items.filter(item => !item.completed);
-               },
-               deleteTodo(id){
-                   this.items = this.items.filter(item => item.id !== id);
-               }
+                removeAllCompleted: function () {
+                    this.items = this.items.filter(item => !item.completed);
+                },
+                deleteTodo(id) {
+                    this.items = this.items.filter(item => item.id !== id);
+                }
             },
             data: {
-               items: []
+                items: []
             }
         });
     </script>
